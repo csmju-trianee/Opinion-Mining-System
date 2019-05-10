@@ -1,30 +1,40 @@
-import mysql.connector
+import requests
+from bs4 import BeautifulSoup
+import pymysql.cursors
 
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="12345678",
-  database="mydatabase"
-)
+# Webpage connection
+url = "http://www.officialcharts.com/charts/singles-chart/19800203/7501/"
+data = requests.get(url);
 
-mycursor = mydb.cursor()
+# Grab title-artist classes and iterate
+soup = BeautifulSoup(data.text,'html.parser')
+recordList = soup.findAll("div", {"class" : "title-artist",})
 
-#sql = "CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))"
+# Now iterate over recordList to grab title and artist
+for record in recordList:
+     title = record.find("div", {"class": "title",}).get_text().strip()
+     artist = record.find("div", {"class": "artist"}).get_text().strip()
+     print (artist + ': ' + title)
 
-#sql = "SHOW TABLES"
+connection = pymysql.connect(host='localhost',
+                             user='root',
+                             password='12345678',
+                             db='mydatabase',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+ 
+try:
+    with connection.cursor() as cursor:
 
-#sql = "UPDATE customers SET address = 'Canyon 123' WHERE address = 'Valley 345'"
-
-#sql = "DROP TABLE customers"
-
-x = [1,2,3,4];
-for a in x:
-    sql = "INSERT INTO customers (name) VALUES (%s)"
-    print(a)
-    mycursor.execute(sql % a)
-
-
-#mydb.commit()
-
-#for x in mycursor:
-#    print(x)
+        sql_del = "DELETE FROM artist_song"
+        cursor.execute(sql_del)
+        connection.commit()
+        
+        for record in recordList:
+            title = record.find("div", {"class": "title",}).get_text().strip()
+            artist = record.find("div", {"class": "artist"}).get_text().strip()
+            sql = "INSERT INTO `artist_song` (`artist`, `song`) VALUES (%s, %s)"
+            cursor.execute(sql, (artist, title))
+    connection.commit()
+finally:
+    connection.close()
