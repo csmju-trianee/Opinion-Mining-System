@@ -7,6 +7,7 @@ check =0
 url =str()
 Next_page=str()
 def main():
+    
     global check
     global page
     #เช็คสถานที 
