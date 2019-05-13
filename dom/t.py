@@ -1,20 +1,35 @@
-import requests
-import re
 
-url = "https://www.tripadvisor.com/Attraction_Review-g293917-d7133132-Reviews-Maya_Lifestyle_Shopping_Center-Chiang_Mai.html"
-data = requests.get(url);
-from bs4 import BeautifulSoup;
+import urllib2
+from bs4 import BeautifulSoup
 
-soup = BeautifulSoup(data.text,'html.parser');
+text = """
+<html>
+    <head>
+    </head>
+    <body>
+        <table>
+            <p>Table1</p>
+            <table>
+                <p>Extra Table</p>
+            </table>
+        </table>
+        <table>
+            <p>Table2</p>
+        </table>
+    </body>
+</html>
+"""
 
+soup = BeautifulSoup(text)
 
-                 
-date    = soup.select('div.ui_column > span.ratingDate')         
-rating  = soup.select('div.ui_column > span.ui_bubble_rating');  
+tables = soup.find('body').find_all('table')
+print (len(tables))
+print (tables[1].text.strip())
+#3
+#Extra Table # which is not the table you want without warning
 
-for a,b in zip(date,rating):
-    
-    print (a.get('title'))
-    print (b.get('class')[1].split('bubble_')[1].split('0')[0])
-    print ("*************************************\n");
-
+tables = soup.find('body').find_all('table', recursive=False)
+print (len(tables))
+print (tables[1].text.strip())
+#2
+#Table2 # your desired output
