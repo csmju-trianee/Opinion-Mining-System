@@ -38,27 +38,6 @@ def getText(link,id_review,Maxpage):
         t = len(comment)
         print("count: name=",q,"date=",w,"rating=",e,"title=",r,"comment=",t,"\n")
 
-        for a,b,c,d,e in zip(name,date,rating,title,comment):
-            a1 = a.text
-            b1 = translator.translate(b.get('title'),dest='en').text
-            c1 = c.get('class')[1].split('bubble_')[1].split('0')[0]
-            d1 = d.text 
-            e1 = e.text
-            e2 = e1.encode("ascii", "ignore")
-    
-            if b1[0].isdigit():
-                obj = datetime.datetime.strptime(str(b1),'%d %B %Y')
-            else:
-                obj = datetime.datetime.strptime(str(b1),'%B %d, %Y')
-    
-            print("Name:",a1)
-            print("Date:",obj.date())
-            print("Rating:",c1+"/5")
-            print("Title:",translator.translate(d1,dest='en').text)
-            print("Description:",e2)
-
-            print("*************************************\n");
-            
             try:
                 with connection.cursor() as cursor:
 
@@ -70,20 +49,33 @@ def getText(link,id_review,Maxpage):
                         b1 = translator.translate(b.get('title'),dest='en').text
                         c1 = c.get('class')[1].split('bubble_')[1].split('0')[0]
                         d1 = translator.translate((d.text),dest='en').text
-                        e1 = translator.translate((e.text),dest='en').text
+                        e1 = e.text
+                        #e2 = e1.encode("ascii", "ignore")
+                        try:
+                             e3 = translator.translate((e1),dest='en').text
+                        except :
+                            e3 = e1
+           
+            
                         if b1[0].isdigit():
                             obj = datetime.datetime.strptime(str(b1),'%d %B %Y')
                         else:
                             obj = datetime.datetime.strptime(str(b1),'%B %d, %Y')
-                
-                        b2 = obj.date()
             
-                sql = "INSERT INTO `data` (`name`,`date`,`rating`,`title`,`descript`) VALUES (%s,%s,%s,%s,%s)"
-                cursor.execute(sql,(a1,b2,c1,d1,e1))
+                        b2 = obj.date()
+
+                        print("Name:",a1);
+                        print("Date:",b2);
+                        print("Rating:",c1+"/5");
+                        print("Title:",translator.translate(d1,dest='en').text);
+                        #print("Description:",e2);
+                        print("*************************************\n");
+            
+                        sql = "INSERT INTO `data` (`name`,`date`,`rating`,`title`,`descript`) VALUES (%s,%s,%s,%s,%s)"
+                        cursor.execute(sql,(a1,b2,c1,d1,e3))
                 connection.commit()
             finally:
                 connection.close()
-        
 def Max_category(urls):
    #function Max review
     url = urls
