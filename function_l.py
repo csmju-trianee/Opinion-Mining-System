@@ -82,8 +82,7 @@ def getText(link,id_review,Maxpage):
                 cursor.execute(sql,(a1,b2,c1,d1,e1))
                 connection.commit()
             finally:
-                print("y")
-            #connection.close()
+                connection.close()
         
 def Max_category(urls):
    #function Max review
