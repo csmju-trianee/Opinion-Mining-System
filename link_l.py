@@ -7,7 +7,7 @@ import threading
 
 connection = pymysql.connect(host='localhost',
                              user='root',
-                             password='',
+                             password='12345678',
                              db='mydatabase',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
@@ -43,19 +43,20 @@ def start_link():
                 start = (page_number.page_ar(link))
                 thread1 = threading.Thread(target = function_l.getText(url,id_review,start))
                 thread1.start()
+                thread1.join()
             
             if txt[0].find('Arabic (Int)') != -1:
                 url = ("ar.tripadvisor.com/")
                 start = (page_number.page_ae_AE(link))
                 thread2 = threading.Thread(target = function_l.getText(url,id_review,start))
                 thread2.start()
-            
+                thread2.join()
             if txt[0].find('Chinese (Int)') != -1:
                 url = ("cn.tripadvisor.com/")
                 start = (page_number.page_zh(link))
                 thread3 = threading.Thread(target = function_l.getText(url,id_review,start))
                 thread3.start()
-            
+                thread3.join()
             # if txt[0].find('Chinese (Sim.)') != -1:
             #     url = ("www.tripadvisor.cn/")
             #     start = (page_number.page_zh_CN(link))

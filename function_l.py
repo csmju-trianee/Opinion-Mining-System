@@ -6,7 +6,7 @@ from googletrans import Translator
 
 connection = pymysql.connect(host='localhost',
                              user='root',
-                             password='',
+                             password='12345678',
                              db='mydatabase',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
