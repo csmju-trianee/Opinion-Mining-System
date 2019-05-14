@@ -13,8 +13,8 @@ def cm():
     for i in x:
         if i.get('href').find('Activities') != -1: 
             if i.get('href').find('Chiang_Mai_Province') != -1:
-                #print(i.get('href'))
                 category.append(i.get('href'))
+                print (i.get('href'))
     function_l.list_category(category)
 
 
@@ -29,9 +29,9 @@ def pk():
         if i.get('href').find('Activities') != -1: 
             category.append(i.get('href'))
             print(category)
-            
+    function_l.list_category(category)
 
-def pk():
+def bk():
     data = requests.get(province[2])
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(data.text,'html.parser')

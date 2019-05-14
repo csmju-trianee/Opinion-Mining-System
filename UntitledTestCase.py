@@ -1,10 +1,18 @@
 import requests
-url ='https://www.tripadvisor.com/Attractions-g1308496-Activities-c41-Chiang_Mai_Province.html'
+url = 'https://www.tripadvisor.com/Attraction_Review-g293917-d16874316-Reviews-Student_Night_Market-Chiang_Mai.html'
+
 data = requests.get(url)
 from bs4 import BeautifulSoup
 soup = BeautifulSoup(data.text,'html.parser')
-x = soup.find_all("a",{"class":"pageNum taLnk"},'last')
-A = []
-for i in x :
-        if i.get('href').find('FILTERED_LIST') != -1: 
-                print(i.get('href'))
+x = soup.find_all("div",{"data-value":"ko"},"span")
+try:
+    for i in x:
+       txt = str(i.text.split('(')[1].split(')')[0])
+       newstr = txt.replace(",", "")
+       print(i.text)
+       break
+except:
+        pass
+        print("pass")
+        
+        

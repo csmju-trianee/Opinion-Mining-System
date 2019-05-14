@@ -22,7 +22,7 @@ def start_link(link) :
     txt = (i.text).split('All languages')
     del txt[0]
 
-    if txt[0].find('Arabic') != -1: 
+    if txt[0].find('Arabic') != -1:
         url = ("www.tripadvisor.com.eg/")
         start = (page_number.page_ar(link))
         function_l.getText(url,id_review,start)
@@ -51,8 +51,6 @@ def start_link(link) :
         url = ("www.tripadvisor.cz/")
         start = (page_number.page_cs(link))
         function_l.getText(url,id_review,start)
-    
-    
 
     if txt[0].find('Danish')!= -1:
         url = ("www.tripadvisor.dk/")
@@ -195,8 +193,5 @@ def start_link(link) :
         start=page_number.page_vi(link)
         function_l.getText(url,id_review,start)
 
-
-
     #print(pages)
-    print("end maya")
-    #driver.quit()
+    print("end ")
