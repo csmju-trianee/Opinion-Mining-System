@@ -4,16 +4,17 @@ import pymysql.cursors
 from googletrans import Translator
 from bs4 import BeautifulSoup;
 
-url = "https://www.tripadvisor.com/Attraction_Review-g1766192-d3750011-Reviews-Mae_Rim_Monkey_School-Mae_Rim.html"
+url = "https://th.tripadvisor.com/Attraction_Review-g293917-d7133132-Reviews-or40-Maya_Lifestyle_Shopping_Center-Chiang_Mai.html"
 data = requests.get(url);
 
-soup = BeautifulSoup(data.text,'html.parser');
+soup = BeautifulSoup(data.content,'html.parser');
 
-name    = soup.select('div.info_text');                   
+name    = soup.select('div.info_text');
 date    = soup.select('div.ui_column > span.ratingDate'); 
 rating  = soup.select('div.ui_column > span.ui_bubble_rating');  
-title   = soup.find_all("span",{"class":"noQuotes"});   
-comment = soup.find_all("div",{"class":"prw_rup prw_reviews_text_summary_hsx"});         #ความคิดเห็น
+title   = soup.find_all("span",{"class":"noQuotes"});
+
+comment = soup.find_all("div",{"class":"prw_rup prw_reviews_text_summary_hsx"});
 
 #translate
 translator = Translator()
@@ -42,7 +43,7 @@ for a,b,c,d,e in zip(name,date,rating,title,comment):
     print("Date:",obj.date());
     print("Rating:",c1+"/5");
     print("Title:",translator.translate(d1,dest='en').text);
-    print("Description:",translator.translate(e1,dest='en').text);
+    print("Description:",e1.encode("ascii","ignore"));
 
     print("*************************************\n");
     
