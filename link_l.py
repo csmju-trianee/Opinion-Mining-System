@@ -41,22 +41,23 @@ def start_link():
             if txt[0].find('Arabic') != -1:
                 url = ("www.tripadvisor.com.eg/")
                 start = (page_number.page_ar(link))
-                thread1 = threading.Thread(target = function_l.getText(url,id_review,start))
-                thread1.start()
-                thread1.join()
-            
+
+                # thread1 = threading.Thread(target = function_l.getText(url,id_review,start))
+                # thread1.start()
+                function_l.getText(url,id_review,start)
             if txt[0].find('Arabic (Int)') != -1:
                 url = ("ar.tripadvisor.com/")
                 start = (page_number.page_ae_AE(link))
-                thread2 = threading.Thread(target = function_l.getText(url,id_review,start))
-                thread2.start()
-                thread2.join()
+                # thread2 = threading.Thread(target = function_l.getText(url,id_review,start))
+                # thread2.start()
+                function_l.getText(url,id_review,start)
+            
             if txt[0].find('Chinese (Int)') != -1:
                 url = ("cn.tripadvisor.com/")
                 start = (page_number.page_zh(link))
-                thread3 = threading.Thread(target = function_l.getText(url,id_review,start))
-                thread3.start()
-                thread3.join()
+                # thread3 = threading.Thread(target = function_l.getText(url,id_review,start))
+                # thread3.start()
+                function_l.getText(url,id_review,start)
             # if txt[0].find('Chinese (Sim.)') != -1:
             #     url = ("www.tripadvisor.cn/")
             #     start = (page_number.page_zh_CN(link))
