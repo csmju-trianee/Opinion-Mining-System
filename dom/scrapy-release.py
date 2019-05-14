@@ -4,7 +4,7 @@ import pymysql.cursors
 from googletrans import Translator
 from bs4 import BeautifulSoup;
 
-url = "https://th.tripadvisor.com/Attraction_Review-g293917-d7133132-Reviews-or40-Maya_Lifestyle_Shopping_Center-Chiang_Mai.html"
+url = "https://www.tripadvisor.com/Attraction_Review-g293917-d7133132-Reviews-or40-Maya_Lifestyle_Shopping_Center-Chiang_Mai.html"
 data = requests.get(url);
 
 soup = BeautifulSoup(data.content,'html.parser');
@@ -33,7 +33,8 @@ for a,b,c,d,e in zip(name,date,rating,title,comment):
     c1 = c.get('class')[1].split('bubble_')[1].split('0')[0]
     d1 = d.text 
     e1 = e.text
-
+    e2 = e1.encode("ascii", "ignore")
+    
     if b1[0].isdigit():
         obj = datetime.datetime.strptime(str(b1),'%d %B %Y')
     else:
@@ -43,7 +44,7 @@ for a,b,c,d,e in zip(name,date,rating,title,comment):
     print("Date:",obj.date());
     print("Rating:",c1+"/5");
     print("Title:",translator.translate(d1,dest='en').text);
-    print("Description:",e1.encode("ascii","ignore"));
+    print("Description:",e2);
 
     print("*************************************\n");
     
