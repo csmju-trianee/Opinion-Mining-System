@@ -6,7 +6,7 @@ from googletrans import Translator
 
 connection = pymysql.connect(host='localhost',
                              user='root',
-                             password='12345678',
+                             password='',
                              db='mydatabase',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
@@ -31,11 +31,11 @@ def getText(link,id_review,Maxpage):
         translator = Translator()
 
         #attribute count
-        q = len(name);
-        w = len(date);
-        e = len(rating);
-        r = len(title);
-        t = len(comment);
+        q = len(name)
+        w = len(date)
+        e = len(rating)
+        r = len(title)
+        t = len(comment)
         print("count: name=",q,"date=",w,"rating=",e,"title=",r,"comment=",t,"\n")
 
         for a,b,c,d,e in zip(name,date,rating,title,comment):
@@ -51,40 +51,38 @@ def getText(link,id_review,Maxpage):
             else:
                 obj = datetime.datetime.strptime(str(b1),'%B %d, %Y')
     
-            print("Name:",a1);
-            print("Date:",obj.date());
-            print("Rating:",c1+"/5");
-            print("Title:",translator.translate(d1,dest='en').text);
-            print("Description:",e2);
+            print("Name:",a1)
+            print("Date:",obj.date())
+            print("Rating:",c1+"/5")
+            print("Title:",translator.translate(d1,dest='en').text)
+            print("Description:",e2)
 
             print("*************************************\n");
             
-        try:
-            with connection.cursor() as cursor:
+            try:
+                with connection.cursor() as cursor:
 
                 #sql_del = "DELETE FROM data"
                 #cursor.execute(sql_del)
                 #connection.commit()
-        
-                for a,b,c,d,e in zip(name,date,rating,title,comment):
-                    a1 = a.text
-                    b1 = translator.translate(b.get('title'),dest='en').text
-                    c1 = c.get('class')[1].split('bubble_')[1].split('0')[0]
-                    d1 = translator.translate((d.text),dest='en').text
-                    e1 = translator.translate((e.text),dest='en').text
-
-                    if b1[0].isdigit():
-                        obj = datetime.datetime.strptime(str(b1),'%d %B %Y')
-                    else:
-                        obj = datetime.datetime.strptime(str(b1),'%B %d, %Y')
+                    for a,b,c,d,e in zip(name,date,rating,title,comment):
+                        a1 = a.text
+                        b1 = translator.translate(b.get('title'),dest='en').text
+                        c1 = c.get('class')[1].split('bubble_')[1].split('0')[0]
+                        d1 = translator.translate((d.text),dest='en').text
+                        e1 = translator.translate((e.text),dest='en').text
+                        if b1[0].isdigit():
+                            obj = datetime.datetime.strptime(str(b1),'%d %B %Y')
+                        else:
+                            obj = datetime.datetime.strptime(str(b1),'%B %d, %Y')
                 
-                    b2 = obj.date()
+                        b2 = obj.date()
             
                 sql = "INSERT INTO `data` (`name`,`date`,`rating`,`title`,`descript`) VALUES (%s,%s,%s,%s,%s)"
                 cursor.execute(sql,(a1,b2,c1,d1,e1))
                 connection.commit()
-        finally:
-            print("y")
+            finally:
+                print("y")
             #connection.close()
         
 def Max_category(urls):
