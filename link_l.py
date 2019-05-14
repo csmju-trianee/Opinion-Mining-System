@@ -1,7 +1,14 @@
 import requests
 import page_number
 import function_l
-
+import pymysql
+connection = pymysql.connect(host='localhost',
+                             user='root',
+                             password='',
+                             db='mydatabase',
+                             charset='utf8mb4',
+                             cursorclass=pymysql.cursors.DictCursor)
+                             
 def start_link(link) :
     urls = link
     id_review  = urls.split('https://www.tripadvisor.com/')[1].split('Reviews-')
