@@ -18,7 +18,7 @@ def cm():
                     print (j.get('href'))
                     print (j.text)
     print(len(category))
-    #function_l.list_category(category)
+    function_l.list_category(category)
 
 
 
@@ -33,8 +33,8 @@ def pk():
                 category.append(j.get('href'))
                 print (j.get('href'))
                 print (j.text)
-    print(len(category))
-    #function_l.list_category(category)
+    function_l.list_category(category)
+
 
 def bk():
     data = requests.get(province[2])
@@ -47,7 +47,7 @@ def bk():
                 category.append(j.get('href'))
                 print (j.get('href'))
                 print (j.text)
-    print(len(category))
+    function_l.list_category(category)
 
 def ch():
     data = requests.get(province[3])
@@ -60,7 +60,7 @@ def ch():
                 category.append(j.get('href'))
                 print (j.get('href'))
                 print (j.text)
-    print(len(category))
+    function_l.list_category(category)
     
 
 

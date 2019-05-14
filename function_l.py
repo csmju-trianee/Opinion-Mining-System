@@ -8,16 +8,6 @@ connection = pymysql.connect(host='localhost',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
     
-def getlink(Url):
-    url = str("https://www.tripadvisor.com/Attraction_Review-g293917-d7133132-Reviews-Maya_Lifestyle_Shopping_Center-Chiang_Mai.html")
-    data = requests.get(url)
-    from bs4 import BeautifulSoup
-    soup = BeautifulSoup(data.text,'html.parser')
-    x = soup.find_all("a",{"class":"pageNum last taLnk"},"href=")
-    for i in x:
-     return(i.get('href'))
-     break
-
 def getText(link,id_review,Maxpage):
     start = Maxpage
     pages=[]
