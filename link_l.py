@@ -38,30 +38,31 @@ def start_link():
                 del txt[0]
             except:
                 pass
-            if txt[0].find('Arabic') != -1:
-                url = ("www.tripadvisor.com.eg/")
-                start = (page_number.page_ar(link))
-                # thread1 = threading.Thread(target = function_l.getText(url,id_review,start))
-                # thread1.start()
-                function_l.getText(url,id_review,start)
-            if txt[0].find('Arabic (Int)') != -1:
-                url = ("ar.tripadvisor.com/")
-                start = (page_number.page_ae_AE(link))
-                # thread2 = threading.Thread(target = function_l.getText(url,id_review,start))
-                # thread2.start()
-                function_l.getText(url,id_review,start)
+
+            # if txt[0].find('Arabic') != -1:
+            #     url = ("www.tripadvisor.com.eg/")
+            #     start = (page_number.page_ar(link))
+            #     thread1 = threading.Thread(target = function_l.getText(url,id_review,start))
+            #     thread1.start()
+                
+            # if txt[0].find('Arabic (Int)') != -1:
+            #     url = ("ar.tripadvisor.com/")
+            #     start = (page_number.page_ae_AE(link))
+            #     thread2 = threading.Thread(target = function_l.getText(url,id_review,start))
+            #     thread2.start()
+                
             
-            if txt[0].find('Chinese (Int)') != -1:
-                url = ("cn.tripadvisor.com/")
-                start = (page_number.page_zh(link))
-                # thread3 = threading.Thread(target = function_l.getText(url,id_review,start))
-                # thread3.start()
-                function_l.getText(url,id_review,start)
-            # if txt[0].find('Chinese (Sim.)') != -1:
-            #     url = ("www.tripadvisor.cn/")
-            #     start = (page_number.page_zh_CN(link))
-            #     thread4 = threading.Thread(target = function_l.getText(url,id_review,start))
-            #     thread4.start()
+            # if txt[0].find('Chinese (Int)') != -1:
+            #     url = ("cn.tripadvisor.com/")
+            #     start = (page_number.page_zh(link))
+            #     thread3 = threading.Thread(target = function_l.getText(url,id_review,start))
+            #     thread3.start()
+                
+            if txt[0].find('Chinese (Sim.)') != -1:
+                url = ("www.tripadvisor.cn/")
+                start = (page_number.page_zh_CN(link))
+                thread4 = threading.Thread(target = function_l.getText(url,id_review,start))
+                thread4.start()
             
             # if txt[0].find('Chinese (Trad.)') != -1:
             #     url = ("www.tripadvisor.com.tw/")
@@ -92,7 +93,7 @@ def start_link():
             #     start = page_number.page_en(link)
             #     thread9 = threading.Thread(target = function_l.getText(url,id_review,start))
             #     thread9.start()
-
+            #     #function_l.getText(url,id_review,start)
             # if txt[0].find('Finnish')!= -1:
             #     url = ("www.tripadvisor.fi/")
             #     start = page_number.page_fi(link)
@@ -242,10 +243,8 @@ def start_link():
             #     start=page_number.page_vi(link)
             #     thread35 = threading.Thread(target = function_l.getText(url,id_review,start))
             #     thread35.start()
-            
-        
         cursor.close()
     finally:
         #closing database connection.
         connection.close()
-        print("MySQL connection is closed")
+    print("MySQL connection is closed")
