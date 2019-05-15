@@ -50,11 +50,11 @@ def getText(link,id_review,Maxpage):
                         c1 = c.get('class')[1].split('bubble_')[1].split('0')[0]
                         d1 = translator.translate((d.text),dest='en').text
                         e1 = e.text
-                        #e2 = e1.encode("ascii", "ignore")
+                        #e2 = e1.encode("ascii", "ignore") 
                         try:
-                             e3 = translator.translate((e1),dest='en').text
+                            e3 = translator.translate((e1),dest='en').text
                         except :
-                            e3 = e1
+                            e3 = e1;
            
             
                         if b1[0].isdigit():
