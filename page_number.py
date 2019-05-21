@@ -1,4 +1,5 @@
 import requests
+
 def page_ar(link):
     url = link
     data = requests.get(url)
